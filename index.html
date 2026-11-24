@@ -1,0 +1,68 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>Infinite Minesweeper</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="heading">
+      <div class="eyebrow">AN ENDLESS FIELD</div>
+      <h1>Infinite Minesweeper</h1>
+      <p>Explore carefully. Every region has its own risks.</p>
+    </header>
+
+    <section class="game-panel" aria-label="Infinite Minesweeper">
+      <div class="toolbar">
+        <div class="stats" aria-label="Exploration statistics">
+          <div class="stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2"/></svg></span><span><strong id="regions-reached">0</strong><small>regions reached</small></span></div>
+          <div class="stat"><span class="stat-icon cleared-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="m7.5 12.5 3 3 6-7"/></svg></span><span><strong id="regions-cleared">0</strong><small>regions cleared</small></span></div>
+          <button class="key-button" id="key-toggle" type="button" aria-pressed="false" title="Use a key to reopen a blocked region"><svg class="key-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="10.5" r="4.5"/><path d="m11.7 13.7 8 8 2-2-2-2 1.8-1.8-3-3"/></svg><strong id="key-count">0</strong><small>keys</small></button>
+        </div>
+        <div class="toolbar-actions">
+          <div class="live-status" id="status" aria-live="polite">World ready</div>
+          <div class="theme-picker" id="theme-picker">
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Choose theme" aria-expanded="false" aria-controls="theme-menu">Theme: <span id="active-theme-name">Midnight</span> &#9662;</button>
+            <div class="theme-menu" id="theme-menu" role="listbox" aria-label="Choose a theme" hidden></div>
+          </div>
+          <button class="control-mode-button" id="control-mode-toggle" type="button" aria-pressed="false" title="Switch to trackpad controls">Mouse controls</button>
+          <button class="sound-button" id="sound-toggle" type="button" aria-pressed="true">&#9835; Sound on</button>
+          <button class="reset-button" id="reset-world" type="button">Reset world</button>
+        </div>
+      </div>
+
+      <div class="map-wrap" id="map-wrap">
+        <canvas id="map" aria-label="Infinite Minesweeper map. Click to reveal, right click to flag, drag or two-finger scroll to pan, pinch or mouse wheel to zoom."></canvas>
+        <div class="zoom-controls" role="group" aria-label="Map zoom controls">
+          <button id="zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+          <output id="zoom-level" aria-live="polite">100%</output>
+          <button id="zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+        </div>
+        <div class="map-tip" id="map-tip">Click to reveal <i></i> Right click to flag <i></i> Hold a number to chord <i></i> Drag to pan <i></i> Two-finger scroll to pan <i></i> Pinch or mouse wheel to zoom</div>
+      </div>
+
+      <footer class="map-footer">
+        <div class="legend"><span class="legend-cell"></span> hidden <span class="legend-flag" aria-hidden="true">&#9873;</span> flagged <span class="legend-blocked"></span> blocked</div>
+        <div class="map-coordinates" id="coordinates">Region 0, 0</div>
+      </footer>
+    </section>
+    <p class="footnote">After your first move, you can reveal or flag only cells next to a revealed safe cell (diagonals count). Find keys on safe squares, then arm a key and click any blocked region to reopen it. A region clears when all safe squares are revealed or all mines are flagged.</p>
+  </main>
+
+  <dialog id="reset-dialog" class="reset-dialog">
+    <form method="dialog">
+      <div class="dialog-mark">&#8635;</div>
+      <h2>Reset this world?</h2>
+      <p>This permanently clears the map, exploration progress, and both region stats.</p>
+      <div class="dialog-actions">
+        <button class="cancel-button" value="cancel">Keep exploring</button>
+        <button class="confirm-button" id="confirm-reset" value="reset">Reset world</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
