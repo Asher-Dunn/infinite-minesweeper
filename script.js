@@ -611,9 +611,8 @@ function reveal(x, y, seen = new Set(), playAudio = true, allowFirstReveal = fal
 
 function flag(x, y) {
   const region = regionForCell(x, y);
-  if (region.state.cleared) return;
+  if (region.state.blocked || region.state.cleared) return;
   const alreadyFlagged = isFlagged(x, y);
-  // Existing flags can be removed from blocked regions, but cleared regions are locked.
   if (!alreadyFlagged && (!isCellPlayable(x, y) || isRevealed(x, y))) return;
   markReached(region);
   const index = localIndex(x, y, region.rx, region.ry);
